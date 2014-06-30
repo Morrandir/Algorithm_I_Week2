@@ -1,5 +1,3 @@
-package com.qubo;
-
 import java.util.Iterator;
 
 /**

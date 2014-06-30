@@ -1,5 +1,3 @@
-package com.qubo;
-
 import java.util.Iterator;
 
 public class Deque<Item> implements Iterable<Item> {
@@ -120,12 +118,12 @@ public class Deque<Item> implements Iterable<Item> {
     public static void main(String[] args) {
     // unit testing
 
-        System.out.print("Testing Deque...\n\n");
+        System.out.print("Testing main.Deque...\n\n");
         System.out.print("Initializing... ");
         Deque<Integer> test = new Deque<Integer>();
         System.out.print("finished.\n");
 
-        System.out.printf("Size of newly initialized Deque is: %d ... ", test.size());
+        System.out.printf("Size of newly initialized main.Deque is: %d ... ", test.size());
         if (test.size() == 0) {
             System.out.print("CORRECT.\n\n");
         } else {
