@@ -18,14 +18,17 @@ public class Deque<Item> implements Iterable<Item> {
     private class DequeIterator implements Iterator<Item> {
         private Node current = first;
 
+        @Override
         public boolean hasNext() {
             return current == null;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException("This method is not supported in Iterator.");
         }
 
+        @Override
         public Item next() {
             if (!hasNext()) throw new java.util.NoSuchElementException("There's no more element.");
 
@@ -99,7 +102,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     public Item removeLast() {
     // delete and return the item at the end
-        if (isEmpty()) throw new java.util.NoSuchElementException("Nothing to remove at the front.");
+        if (isEmpty()) throw new java.util.NoSuchElementException("Nothing to remove at the end.");
 
         Node oldLast = last;
         last = oldLast.previous;
