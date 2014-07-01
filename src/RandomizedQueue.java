@@ -28,15 +28,21 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         @Override
         public Item next() {
-            if (!hasNext()) throw new java.util.NoSuchElementException("There's no more element.");
+            if (!hasNext())
+                throw new java.util.NoSuchElementException(
+                        "There's no more element.");
             return queueIterator[--current];
         }
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException("This method is not supported in Iterator.");
+            throw new UnsupportedOperationException(
+                    "This method is not supported in Iterator.");
         }
     }
+
+
+
     public RandomizedQueue() {
     // construct an empty randomized queue
         queue = (Item[]) new Object[1];
@@ -61,7 +67,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         queue = temp;
     }
 
-    private void swap(Item[] queue, int a, int b) {
+    private void swap(int a, int b) {
         Item temp = queue[a];
         queue[a] = queue[b];
         queue[b] = temp;
@@ -69,16 +75,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public void enqueue(Item item) {
     // add the item
-        if (item == null) throw new NullPointerException("Cannot enqueue a null item.");
+        if (item == null)
+            throw new NullPointerException("Cannot enqueue a null item.");
 
         if (size == queue.length) resize(2 * queue.length);
         queue[size] = item;
-        swap(queue, StdRandom.uniform(size + 1), size++);
+        swap(StdRandom.uniform(size + 1), size++);
     }
 
     public Item dequeue() {
     // delete and return a random item
-        if(isEmpty()) throw new java.util.NoSuchElementException("Nothing to dequeue.");
+        if (isEmpty())
+            throw new java.util.NoSuchElementException("Nothing to dequeue.");
         Item temp = queue[--size];
         queue[size] = null;
         if (size > 0 && size == queue.length / 4) resize(queue.length / 2);
@@ -87,7 +95,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public Item sample() {
     // return (but do not delete) a random item
-        if(isEmpty()) throw new java.util.NoSuchElementException("Nothing to sample.");
+        if (isEmpty())
+            throw new java.util.NoSuchElementException("Nothing to sample.");
         return queue[StdRandom.uniform(size)];
     }
 

@@ -11,7 +11,8 @@ public class Deque<Item> implements Iterable<Item> {
 
         public Node(Item item) {
             this.item = item;
-            previous = next = null;
+            previous = null;
+            next = null;
         }
     }
 
@@ -20,26 +21,31 @@ public class Deque<Item> implements Iterable<Item> {
 
         @Override
         public boolean hasNext() {
-            return current == null;
+            return current != null;
         }
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException("This method is not supported in Iterator.");
+            throw new UnsupportedOperationException(
+                    "Method is not supported in Iterator.");
         }
 
         @Override
         public Item next() {
-            if (!hasNext()) throw new java.util.NoSuchElementException("There's no more element.");
+            if (!hasNext())
+                throw new java.util.NoSuchElementException(
+                        "There's no more element.");
 
+            Item item = current.item;
             current = current.next;
-            return current.previous.item;
+            return item;
         }
     }
 
     public Deque() {
     // construct an empty deque
-        first = last = null;
+        first = null;
+        last = null;
         size = 0;
     }
 
@@ -55,7 +61,8 @@ public class Deque<Item> implements Iterable<Item> {
 
     public void addFirst(Item item) {
     // insert the item at the front
-        if (item == null) throw new NullPointerException("Cannot add a null item.");
+        if (item == null)
+            throw new NullPointerException("Cannot add a null item.");
 
         Node oldFirst = first;
         first = new Node(item);
@@ -72,7 +79,8 @@ public class Deque<Item> implements Iterable<Item> {
 
     public void addLast(Item item) {
     // insert the item at the end
-        if (item == null) throw new NullPointerException("Cannot add a null item.");
+        if (item == null)
+            throw new NullPointerException("Cannot add a null item.");
 
         Node oldLast = last;
         last = new Node(item);
@@ -89,12 +97,19 @@ public class Deque<Item> implements Iterable<Item> {
 
     public Item removeFirst() {
     // delete and return the item at the front
-        if (isEmpty()) throw new java.util.NoSuchElementException("Nothing to remove at the front.");
+        if (isEmpty())
+            throw new java.util.NoSuchElementException(
+                    "Nothing to remove at the front.");
 
         Node oldFirst = first;
         first = oldFirst.next;
-        if (first != null) first.previous = null;
-        oldFirst.next = null;
+        if (first != null) {
+            first.previous = null;
+            oldFirst.next = null;
+        } else {
+            last = null;
+        }
+
         size--;
 
         return oldFirst.item;
@@ -102,12 +117,19 @@ public class Deque<Item> implements Iterable<Item> {
 
     public Item removeLast() {
     // delete and return the item at the end
-        if (isEmpty()) throw new java.util.NoSuchElementException("Nothing to remove at the end.");
+        if (isEmpty())
+            throw new java.util.NoSuchElementException(
+                    "Nothing to remove at the end.");
 
         Node oldLast = last;
         last = oldLast.previous;
-        if (last != null) last.next = null;
-        oldLast.previous = null;
+        if (last != null) {
+            last.next = null;
+            oldLast.previous = null;
+        } else {
+            first = null;
+        }
+
         size--;
 
         return oldLast.item;
@@ -126,7 +148,9 @@ public class Deque<Item> implements Iterable<Item> {
         Deque<Integer> test = new Deque<Integer>();
         System.out.print("finished.\n");
 
-        System.out.printf("Size of newly initialized main.Deque is: %d ... ", test.size());
+        System.out.printf(
+                "Size of newly initialized main.Deque is: %d ... ",
+                test.size());
         if (test.size() == 0) {
             System.out.print("CORRECT.\n\n");
         } else {
@@ -144,6 +168,9 @@ public class Deque<Item> implements Iterable<Item> {
         } else {
             System.out.print("WRONG.\n\n");
         }
+
+        Iterator iterator = test.iterator();
+        iterator.next();
 
         System.out.print("removeFirst()... ");
         out = test.removeFirst();
